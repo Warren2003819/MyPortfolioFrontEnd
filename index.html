@@ -1,4 +1,33 @@
-<!-- Importante yung type="module" para gumana ang Vite environment variables -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emjay's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- KALIWA: Fixed Profile Sidebar -->
+        <aside class="sidebar" id="profile-section">
+            <p style="color: var(--text-muted);">Loading profile...</p>
+        </aside>
+
+        <!-- KANAN: Scrollable Content -->
+        <main class="content">
+            <div class="header">
+                <h2>My Projects</h2>
+                <button id="theme-toggle">🌙 Dark Mode</button>
+            </div>
+            
+            <div id="project-list">
+                <p style="color: var(--text-muted);">Loading projects...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Importante yung type="module" para gumana ang Vite environment variables -->
     <script type="module">
         // --- 1. DARK MODE TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('theme-toggle');
@@ -53,3 +82,6 @@
                 });
             });
     </script>
+
+</body>
+</html>
