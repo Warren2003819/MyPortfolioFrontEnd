@@ -1,0 +1,118 @@
+/* --- TEMA AT KULAY (CSS Variables) --- */
+/* Default: Light Mode (Maroon & White) */
+:root {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --border-color: #e0e0e0;
+    --maroon: #800000; /* IT Maroon Theme */
+    --maroon-light: #a31515;
+}
+
+/* Dark Mode Theme */
+[data-theme="dark"] {
+    --bg-main: #12141c;
+    --bg-sidebar: #1a1d26;
+    --bg-card: #1e212b;
+    --text-main: #e0e5ec;
+    --text-muted: #a0a8b5;
+    --border-color: #2a2d3a;
+    --maroon: #b31b1b; /* Mas maliwanag na maroon para sa dark mode */
+    --maroon-light: #e63946;
+}
+
+/* --- BASE STYLES --- */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- LAYOUT (FB-Style / Resume) --- */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* KALIWA: Fixed Profile Sidebar */
+.sidebar {
+    width: 300px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 40px 20px;
+    text-align: center;
+    /* Ito yung nagpapa-steady sa kanya kahit mag-scroll ka! */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+.sidebar img {
+    width: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--maroon);
+    margin-bottom: 20px;
+}
+
+.sidebar h1 { font-size: 1.5em; margin: 10px 0; }
+.sidebar .title { color: var(--maroon); font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 0.9em; }
+.sidebar .bio { font-size: 0.9em; line-height: 1.6; color: var(--text-muted); margin-bottom: 20px; }
+
+/* KANAN: Scrollable Projects Content */
+.content {
+    flex: 1;
+    padding: 40px 60px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+#theme-toggle:hover {
+    border-color: var(--maroon);
+    color: var(--maroon);
+}
+
+/* Minimalist Project Cards (Hindi na umiikot) */
+.project-card {
+    background-color: var(--bg-card);
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--maroon); /* Maroon accent line sa gilid */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.project-card:hover {
+    background-color: var(--bg-sidebar); /* Subtle hover lang para clean */
+    transform: translateX(5px); /* Aangat lang nang kaunti papuntang kanan */
+}
+
+.project-card h2 { margin-top: 0; color: var(--maroon); font-size: 1.4em; }
+.category { font-size: 0.85em; font-weight: bold; color: var(--text-muted); margin-bottom: 15px; }
+.status { background-color: var(--maroon); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; }

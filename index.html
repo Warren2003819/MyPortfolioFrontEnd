@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emjay's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- KALIWA: Fixed Profile Sidebar -->
+        <aside class="sidebar" id="profile-section">
+            <p style="color: var(--text-muted);">Loading profile...</p>
+        </aside>
+
+        <!-- KANAN: Scrollable Content -->
+        <main class="content">
+            <div class="header">
+                <h2>My Projects</h2>
+                <button id="theme-toggle">🌙 Dark Mode</button>
+            </div>
+            
+            <div id="project-list">
+                <p style="color: var(--text-muted);">Loading projects...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- 1. DARK MODE TOGGLE LOGIC ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        toggleBtn.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.body.removeAttribute('data-theme');
+                toggleBtn.textContent = '🌙 Dark Mode';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                toggleBtn.textContent = '☀️ Light Mode';
+            }
+        });
+
+        // --- 2. KUNIN ANG DATA SA BACKEND ---
+        fetch('http://localhost:3000/about')
+            .then(res => res.json())
+            .then(data => {
+                const profile = data.data;
+                document.getElementById('profile-section').innerHTML = `
+                    <img src="${profile.imageUrl}" alt="Profile Picture">
+                    <h1>${profile.name}</h1>
+                    <p class="title">${profile.title}</p>
+                    <p class="bio">${profile.bio}</p>
+                    <p style="font-size: 0.85em; color: var(--text-muted);">📍 ${profile.education.university}</p>
+                `;
+            });
+
+        fetch('http://localhost:3000/projects')
+            .then(res => res.json())
+            .then(data => {
+                const projectList = document.getElementById('project-list');
+                projectList.innerHTML = ''; 
+
+                data.data.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <h2>${project.title}</h2>
+                        <p class="category">${project.category}</p>
+                        <p style="color: var(--text-muted); line-height: 1.5;">${project.description}</p>
+                        <p style="margin-top: 20px;"><span class="status">${project.status}</span></p>
+                    `;
+                    projectList.appendChild(card);
+                });
+            });
+    </script>
+</body>
+</html>
