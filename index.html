@@ -1,33 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emjay's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <div class="container">
-        <!-- KALIWA: Fixed Profile Sidebar -->
-        <aside class="sidebar" id="profile-section">
-            <p style="color: var(--text-muted);">Loading profile...</p>
-        </aside>
-
-        <!-- KANAN: Scrollable Content -->
-        <main class="content">
-            <div class="header">
-                <h2>My Projects</h2>
-                <button id="theme-toggle">🌙 Dark Mode</button>
-            </div>
-            
-            <div id="project-list">
-                <p style="color: var(--text-muted);">Loading projects...</p>
-            </div>
-        </main>
-    </div>
-
-    <script>
+<!-- Importante yung type="module" para gumana ang Vite environment variables -->
+    <script type="module">
         // --- 1. DARK MODE TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('theme-toggle');
         toggleBtn.addEventListener('click', () => {
@@ -42,7 +14,13 @@
         });
 
         // --- 2. KUNIN ANG DATA SA BACKEND ---
-        fetch('http://localhost:3000/about')
+        
+        // Dito natin kukunin yung key! 
+        // Sa PC mo, localhost ito. Sa Vercel, ito yung Render link mo.
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        // Pinalitan natin ang localhost ng dynamic variable
+        fetch(`${apiUrl}/about`)
             .then(res => res.json())
             .then(data => {
                 const profile = data.data;
@@ -55,7 +33,8 @@
                 `;
             });
 
-        fetch('http://localhost:3000/projects')
+        // Pinalitan din natin ito
+        fetch(`${apiUrl}/projects`)
             .then(res => res.json())
             .then(data => {
                 const projectList = document.getElementById('project-list');
@@ -74,5 +53,3 @@
                 });
             });
     </script>
-</body>
-</html>
