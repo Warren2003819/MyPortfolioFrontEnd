@@ -1,118 +1,200 @@
-/* --- TEMA AT KULAY (CSS Variables) --- */
-/* Default: Light Mode (Maroon & White) */
 :root {
-    --bg-main: #ffffff;
-    --bg-sidebar: #f8f9fa;
+    --bg-main: #f4f6f8;
+    --bg-sidebar: #ffffff;
     --bg-card: #ffffff;
-    --text-main: #2d3436;
-    --text-muted: #636e72;
-    --border-color: #e0e0e0;
-    --maroon: #800000; /* IT Maroon Theme */
-    --maroon-light: #a31515;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --maroon: #800000;
+    --maroon-light: #991b1b;
 }
 
-/* Dark Mode Theme */
 [data-theme="dark"] {
-    --bg-main: #12141c;
-    --bg-sidebar: #1a1d26;
-    --bg-card: #1e212b;
-    --text-main: #e0e5ec;
-    --text-muted: #a0a8b5;
-    --border-color: #2a2d3a;
-    --maroon: #b31b1b; /* Mas maliwanag na maroon para sa dark mode */
-    --maroon-light: #e63946;
+    --bg-main: #111827;
+    --bg-sidebar: #1f2937;
+    --bg-card: #1f2937;
+    --text-main: #f9fafb;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --maroon: #ef4444; 
+    --maroon-light: #f87171;
 }
 
-/* --- BASE STYLES --- */
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s, color 0.3s;
+    line-height: 1.5;
 }
 
-/* --- LAYOUT (FB-Style / Resume) --- */
+/* LAYOUT */
 .container {
     display: flex;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     min-height: 100vh;
+    background-color: var(--bg-sidebar);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* KALIWA: Fixed Profile Sidebar */
+/* SIDEBAR */
 .sidebar {
-    width: 300px;
+    width: 320px;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
-    padding: 40px 20px;
-    text-align: center;
-    /* Ito yung nagpapa-steady sa kanya kahit mag-scroll ka! */
+    padding: 40px 30px;
+    text-align: left;
     position: sticky;
     top: 0;
     height: 100vh;
     box-sizing: border-box;
     transition: background-color 0.3s;
+    overflow-y: auto;
 }
 
 .sidebar img {
-    width: 140px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 4px solid var(--maroon);
+    object-fit: cover;
+    border: 3px solid var(--border-color);
     margin-bottom: 20px;
 }
 
-.sidebar h1 { font-size: 1.5em; margin: 10px 0; }
-.sidebar .title { color: var(--maroon); font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 0.9em; }
-.sidebar .bio { font-size: 0.9em; line-height: 1.6; color: var(--text-muted); margin-bottom: 20px; }
+.sidebar h1 { font-size: 1.5em; margin: 0 0 10px 0; color: var(--text-main); }
+.sidebar .title { color: var(--maroon); font-weight: 600; font-size: 0.9em; margin-bottom: 15px; }
+.sidebar .bio { font-size: 0.9em; color: var(--text-muted); margin-bottom: 25px; }
 
-/* KANAN: Scrollable Projects Content */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.info-item a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.info-item a:hover {
+    color: var(--maroon);
+}
+
+/* CONTENT AREA */
 .content {
     flex: 1;
-    padding: 40px 60px;
+    padding: 40px 50px;
+    background-color: var(--bg-main);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
+    margin-bottom: 40px;
 }
 
-/* Theme Toggle Button */
+.header h2 { margin: 0; font-size: 1.8em; font-weight: 600; }
+
 #theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-main);
-    padding: 8px 15px;
-    border-radius: 20px;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-#theme-toggle:hover {
-    border-color: var(--maroon);
-    color: var(--maroon);
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s;
 }
 
-/* Minimalist Project Cards (Hindi na umiikot) */
+#theme-toggle:hover {
+    border-color: var(--text-muted);
+    background-color: rgba(0,0,0,0.05);
+}
+[data-theme="dark"] #theme-toggle:hover { background-color: rgba(255,255,255,0.05); }
+
+/* PROJECT CARDS (With Images) */
 .project-card {
     background-color: var(--bg-card);
-    padding: 25px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    margin-bottom: 30px;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
-    border-left: 5px solid var(--maroon); /* Maroon accent line sa gilid */
-    transition: background-color 0.3s, transform 0.2s;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .project-card:hover {
-    background-color: var(--bg-sidebar); /* Subtle hover lang para clean */
-    transform: translateX(5px); /* Aangat lang nang kaunti papuntang kanan */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.project-card h2 { margin-top: 0; color: var(--maroon); font-size: 1.4em; }
-.category { font-size: 0.85em; font-weight: bold; color: var(--text-muted); margin-bottom: 15px; }
-.status { background-color: var(--maroon); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; }
+.project-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+    display: block;
+}
+
+.project-content {
+    padding: 25px;
+}
+
+.project-card h2 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.3em; font-weight: 600; }
+.category { font-size: 0.85em; font-weight: 600; color: var(--maroon); margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.5px;}
+.role { color: var(--text-muted); font-weight: 400; }
+.desc { color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px; }
+
+.status-wrapper { margin: 0; }
+.status { 
+    background-color: rgba(128, 0, 0, 0.1); 
+    color: var(--maroon); 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    font-size: 0.8em; 
+    font-weight: 600; 
+}
+[data-theme="dark"] .status { background-color: rgba(239, 68, 68, 0.15); }
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 30px 20px;
+        text-align: center;
+    }
+    
+    .sidebar img { margin: 0 auto 20px auto; }
+    
+    .contact-info {
+        align-items: center; /* Center icons on mobile */
+    }
+
+    .content {
+        padding: 30px 20px;
+    }
+}
