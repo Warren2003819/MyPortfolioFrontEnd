@@ -89,16 +89,16 @@
                 projectList.innerHTML = ''; 
 
                 data.data.forEach(project => {
-                    // Ginawa nating <a> tag imbes na <div>
                     const card = document.createElement('a'); 
                     card.className = 'project-card';
-                    card.href = project.link || '#'; // Kukunin niya yung link sa backend
-                    card.target = '_blank'; // Para magbukas sa bagong tab
-                    card.rel = 'noopener noreferrer'; // Para secure
+                    card.href = project.link || '#';
+                    card.target = '_blank';
+                    card.rel = 'noopener noreferrer'; 
                     
-                    const imgBlock = project.imageUrl 
-                        ? `<img src="${project.imageUrl}" alt="${project.title}" class="project-img">` 
-                        : '';
+                    // Kung may imageSvg na ibinigay si backend, yun ang gagamitin niya.
+                    const imgBlock = project.imageSvg 
+                        ? project.imageSvg 
+                        : (project.imageUrl ? `<img src="${project.imageUrl}" alt="${project.title}" class="project-img">` : '');
 
                     card.innerHTML = `
                         ${imgBlock}
@@ -107,7 +107,6 @@
                             <p class="category">${project.category} | <span class="role">${project.role}</span></p>
                             <p class="desc">${project.description}</p>
                             
-                            <!-- Bagong layout para sa ilalim ng card -->
                             <div class="card-footer">
                                 <span class="status">${project.status}</span>
                                 <span class="view-link">View Details &rarr;</span>
