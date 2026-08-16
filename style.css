@@ -129,14 +129,18 @@ body {
 }
 [data-theme="dark"] #theme-toggle:hover { background-color: rgba(255,255,255,0.05); }
 
-/* PROJECT CARDS (With Images) */
+/* --- PROJECT CARDS (CLICKABLE) --- */
 .project-card {
+    display: block; /* Importante para gumana ang <a> tag bilang container */
+    text-decoration: none; /* Tanggalin ang asul na underline sa text */
+    color: inherit; /* Panatilihin ang default na text color */
     background-color: var(--bg-card);
     margin-bottom: 30px;
     border-radius: 10px;
     border: 1px solid var(--border-color);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; /* Gawing kamay ang mouse pointer kapag naka-hover */
 }
 
 .project-card:hover {
@@ -161,7 +165,14 @@ body {
 .role { color: var(--text-muted); font-weight: 400; }
 .desc { color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px; }
 
-.status-wrapper { margin: 0; }
+/* Bagong layout para sa ilalim ng card (Status at View Details) */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
 .status { 
     background-color: rgba(128, 0, 0, 0.1); 
     color: var(--maroon); 
@@ -171,6 +182,23 @@ body {
     font-weight: 600; 
 }
 [data-theme="dark"] .status { background-color: rgba(239, 68, 68, 0.15); }
+
+.view-link {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--maroon);
+    transition: transform 0.2s;
+}
+
+/* Hover effect: aangat pakanan yung "View Details" text */
+.project-card:hover .view-link {
+    transform: translateX(5px);
+    color: var(--maroon-light);
+}
+
+[data-theme="dark"] .view-link {
+    color: var(--maroon-light);
+}
 
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
