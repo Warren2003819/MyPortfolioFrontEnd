@@ -17,38 +17,44 @@
         <!-- KANAN: Scrollable Content -->
         <main class="content">
             <div class="header">
-                <h2>My Projects</h2>
-                <button id="theme-toggle">🌙 Dark Mode</button>
+                <h2>Experience & Projects</h2>
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <!-- SVG para sa Dark/Light mode -->
+                    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
             </div>
             
             <div id="project-list">
-                <p style="color: var(--text-muted);">Loading projects...</p>
+                <p style="color: var(--text-muted);">Loading data...</p>
             </div>
         </main>
     </div>
 
-    <!-- Importante yung type="module" para gumana ang Vite environment variables -->
     <script type="module">
         // --- 1. DARK MODE TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
         toggleBtn.addEventListener('click', () => {
             const isDark = document.body.getAttribute('data-theme') === 'dark';
             if (isDark) {
                 document.body.removeAttribute('data-theme');
-                toggleBtn.textContent = '🌙 Dark Mode';
+                themeText.textContent = 'Dark Mode';
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
             } else {
                 document.body.setAttribute('data-theme', 'dark');
-                toggleBtn.textContent = '☀️ Light Mode';
+                themeText.textContent = 'Light Mode';
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
             }
         });
 
-        // --- 2. KUNIN ANG DATA SA BACKEND ---
-        
-        // Dito natin kukunin yung key! 
-        // Sa PC mo, localhost ito. Sa Vercel, ito yung Render link mo.
+        // --- 2. FETCH DATA ---
         const apiUrl = 'https://emjaywarrencampano-dev-info.onrender.com';
 
-        // Pinalitan natin ang localhost ng dynamic variable
         fetch(`${apiUrl}/about`)
             .then(res => res.json())
             .then(data => {
@@ -58,11 +64,24 @@
                     <h1>${profile.name}</h1>
                     <p class="title">${profile.title}</p>
                     <p class="bio">${profile.bio}</p>
-                    <p style="font-size: 0.85em; color: var(--text-muted);">📍 ${profile.education.university}</p>
+                    
+                    <div class="contact-info">
+                        <p class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            ${profile.location}
+                        </p>
+                        <p class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10 8 10-8M2 16v-6"></path><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect></svg>
+                            <a href="mailto:${profile.email}">${profile.email}</a>
+                        </p>
+                        <p class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            ${profile.education.degree} (${profile.education.year})
+                        </p>
+                    </div>
                 `;
             });
 
-        // Pinalitan din natin ito
         fetch(`${apiUrl}/projects`)
             .then(res => res.json())
             .then(data => {
@@ -72,16 +91,24 @@
                 data.data.forEach(project => {
                     const card = document.createElement('div');
                     card.className = 'project-card';
+                    
+                    // Conditionally render image block
+                    const imgBlock = project.imageUrl 
+                        ? `<img src="${project.imageUrl}" alt="${project.title}" class="project-img">` 
+                        : '';
+
                     card.innerHTML = `
-                        <h2>${project.title}</h2>
-                        <p class="category">${project.category}</p>
-                        <p style="color: var(--text-muted); line-height: 1.5;">${project.description}</p>
-                        <p style="margin-top: 20px;"><span class="status">${project.status}</span></p>
+                        ${imgBlock}
+                        <div class="project-content">
+                            <h2>${project.title}</h2>
+                            <p class="category">${project.category} | <span class="role">${project.role}</span></p>
+                            <p class="desc">${project.description}</p>
+                            <p class="status-wrapper"><span class="status">${project.status}</span></p>
+                        </div>
                     `;
                     projectList.appendChild(card);
                 });
             });
     </script>
-
 </body>
 </html>
