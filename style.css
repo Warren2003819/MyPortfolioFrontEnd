@@ -131,16 +131,16 @@ body {
 
 /* --- PROJECT CARDS (CLICKABLE) --- */
 .project-card {
-    display: block; /* Importante para gumana ang <a> tag bilang container */
-    text-decoration: none; /* Tanggalin ang asul na underline sa text */
-    color: inherit; /* Panatilihin ang default na text color */
+    display: block; 
+    text-decoration: none; 
+    color: inherit; 
     background-color: var(--bg-card);
     margin-bottom: 30px;
     border-radius: 10px;
     border: 1px solid var(--border-color);
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer; /* Gawing kamay ang mouse pointer kapag naka-hover */
+    cursor: pointer; 
 }
 
 .project-card:hover {
@@ -165,7 +165,7 @@ body {
 .role { color: var(--text-muted); font-weight: 400; }
 .desc { color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px; }
 
-/* Bagong layout para sa ilalim ng card (Status at View Details) */
+/* Layout para sa ilalim ng card */
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -190,7 +190,6 @@ body {
     transition: transform 0.2s;
 }
 
-/* Hover effect: aangat pakanan yung "View Details" text */
 .project-card:hover .view-link {
     transform: translateX(5px);
     color: var(--maroon-light);
@@ -198,6 +197,11 @@ body {
 
 [data-theme="dark"] .view-link {
     color: var(--maroon-light);
+}
+
+/* MapLibre fix para sa map container */
+.maplibregl-canvas {
+    outline: none !important;
 }
 
 /* MOBILE RESPONSIVENESS */
@@ -219,7 +223,7 @@ body {
     .sidebar img { margin: 0 auto 20px auto; }
     
     .contact-info {
-        align-items: center; /* Center icons on mobile */
+        align-items: center; 
     }
 
     .content {
