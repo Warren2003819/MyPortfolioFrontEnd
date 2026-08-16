@@ -19,7 +19,6 @@
             <div class="header">
                 <h2>Experience & Projects</h2>
                 <button id="theme-toggle" aria-label="Toggle Theme">
-                    <!-- SVG para sa Dark/Light mode -->
                     <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
@@ -95,13 +94,11 @@
                     card.target = '_blank';
                     card.rel = 'noopener noreferrer'; 
                     
-                    // Kung may imageSvg na ibinigay si backend, yun ang gagamitin niya.
-                    const imgBlock = project.imageSvg 
-                        ? project.imageSvg 
-                        : (project.imageUrl ? `<img src="${project.imageUrl}" alt="${project.title}" class="project-img">` : '');
+                    // Ginagamit natin yung visualMedia kung saan nakalagay yung mapa at SVG
+                    const mediaBlock = project.visualMedia ? project.visualMedia : '';
 
                     card.innerHTML = `
-                        ${imgBlock}
+                        ${mediaBlock}
                         <div class="project-content">
                             <h2>${project.title}</h2>
                             <p class="category">${project.category} | <span class="role">${project.role}</span></p>
